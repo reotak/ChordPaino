@@ -4,6 +4,9 @@ import java.awt.event.KeyListener;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 
 import chordSpeaker.SoundController;
 import clock.DigitalClockSegments;
@@ -15,6 +18,13 @@ public class MainFrame extends JFrame implements KeyListener {
 	private DigitalClockSegments clock;
 
 	public MainFrame() throws LineUnavailableException {
+
+		// UIManagerの設定。Macでボタンの背景色を設定できない問題に対応
+		try {
+			UIManager.setLookAndFeel(new MetalLookAndFeel());
+		} catch (UnsupportedLookAndFeelException e) {
+			// Do nothing
+		}
 
 		soundController = new SoundController();
 		Thread scThread = new Thread(soundController);

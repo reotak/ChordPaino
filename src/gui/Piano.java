@@ -30,7 +30,7 @@ public class Piano extends JPanel {
 		this.addKeyListener(keyListener);
 
 		// 位置の指定
-		// this.setBounds(x, y, width, height);
+		this.setBounds(x, y, width, height);
 
 		// レイアウトマネージャは利用しない
 		this.setLayout(null);
@@ -98,7 +98,6 @@ public class Piano extends JPanel {
 	}
 
 	public void paintKeys(List<Key> keys) {
-		System.out.println("paint " + keys);
 		for (Map.Entry<Key, JButton> key : keyButtonMap.entrySet()) {
 			if (keys.contains(key.getKey())) {
 				key.getValue().setBackground(Color.CYAN);

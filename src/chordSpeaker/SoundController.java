@@ -19,9 +19,6 @@ public class SoundController implements Runnable {
 	// 音量
 	private final static byte VELOCITY = 7;
 
-	private boolean changed = false;
-	private Object changedMutex = new Object();
-
 	public SoundController() throws LineUnavailableException {
 		speaker = Speaker.newSpeaker();
 		calcNotes();
@@ -59,14 +56,8 @@ public class SoundController implements Runnable {
 		byte[] buff = calcBuffer(BUFF_SIZE);
 
 		if (buff == null) {
-			speaker.drain();
+			speaker.reflesh();
 			return;
-		}
-		synchronized (changedMutex) {
-			if (changed) {
-				changed = false;
-				speaker.drain();
-			}
 		}
 		speaker.sound(buff, buff.length);
 	}
@@ -151,14 +142,10 @@ public class SoundController implements Runnable {
 			}
 		}
 
-		synchronized (changedMutex) {
-			if (isChange) {
-				changed = true;
-
-				// 変更があった場合、強引に再生を止め次の音の再生を開始する
-				speaker.reflesh();
-				sound();
-			}
+		if (isChange) {
+			// 変更があった場合、強引に再生を止め次の音の再生を開始する
+			speaker.reflesh();
+			sound();
 		}
 
 		keys = indexes;

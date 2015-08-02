@@ -36,13 +36,15 @@ public class KeyManager {
 		kenbanMap.put(KeyEvent.VK_CLOSE_BRACKET, Key.B);
 
 		chordMap.put(KeyEvent.VK_Q, Chord.MAJOR);
-		chordMap.put(KeyEvent.VK_A, Chord.MINOR);
 		chordMap.put(KeyEvent.VK_W, Chord.SEVENTH);
-		chordMap.put(KeyEvent.VK_S, Chord.MINOR_SEVENTH);
-		chordMap.put(KeyEvent.VK_E, Chord.MINOR_SEVENTH_MINUS_FIFTH);
-		chordMap.put(KeyEvent.VK_D, Chord.MAJOR_SEVENTH);
+		chordMap.put(KeyEvent.VK_E, Chord.MAJOR_SEVENTH);
 		chordMap.put(KeyEvent.VK_R, Chord.SEVENTH_ADD_FIFTH);
+
+		chordMap.put(KeyEvent.VK_A, Chord.MINOR);
+		chordMap.put(KeyEvent.VK_S, Chord.MINOR_SEVENTH);
+		chordMap.put(KeyEvent.VK_D, Chord.MINOR_SEVENTH_MINUS_FIFTH);
 		chordMap.put(KeyEvent.VK_F, Chord.MINOR_MAJOR_SEVENTH);
+
 		chordMap.put(KeyEvent.VK_1, Chord.SIXTH);
 		chordMap.put(KeyEvent.VK_2, Chord.NINETH);
 		chordMap.put(KeyEvent.VK_3, Chord.SIXTH_ADD_NINETH);
@@ -59,7 +61,6 @@ public class KeyManager {
 	 *            KeyEventのコード
 	 */
 	public synchronized void setKey(int code) {
-		System.out.println(code + " --> " + octaveKeys);
 		Key key = kenbanMap.get(code);
 		if (key != null) {
 			if (!kenbanKeys.contains(key)) {
@@ -89,7 +90,6 @@ public class KeyManager {
 	 *            KeyEventのコード
 	 */
 	public synchronized void removeKey(int code) {
-		System.out.println(code + " <-- " + octaveKeys);
 		Key key = kenbanMap.get(code);
 		if (key != null) {
 			kenbanKeys.remove(key);
@@ -112,7 +112,6 @@ public class KeyManager {
 	 * @return 音のインデックスリスト
 	 */
 	public synchronized List<Integer> getKeys() {
-		System.out.println(kenbanKeys);
 		if (kenbanKeys.size() == 0) {
 			return new ArrayList<Integer>();
 		}
